@@ -14,7 +14,7 @@ const re6 = /^\S{6,}$/;
 const rePassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const reEmail = /^\S+@\S+\.\S+$/;
 
-let users = [];
+let users = JSON.parse(localStorage.getItem("users")) || [];
 let user = {
   userName: "",
   email: "",
