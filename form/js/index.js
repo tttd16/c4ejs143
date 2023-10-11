@@ -1,12 +1,13 @@
+const forms = document.querySelector(".needs-validation");
+const userNameElement = document.querySelector("#username");
 const emailElement = document.querySelector("#email");
 const passwordElement = document.querySelector("#password");
-const userNameElement = document.querySelector("#username");
 const repasswordInput = document.querySelector("#re-password");
-const forms = document.querySelector(".needs-validation");
 
+userNameElement.addEventListener("blur", validateUsername);
 emailElement.addEventListener("blur", validateEmail);
 passwordElement.addEventListener("blur", validatePassword);
-userNameElement.addEventListener("blur", validateUsername);
+repasswordInput.addEventListener("blur", validateRePassword);
 
 const reSpaces = /^\S*$/;
 const re6 = /^\S{6,}$/;
@@ -62,8 +63,8 @@ function validatePassword() {
   }
 }
 
-function validateRePassword(password, repassword) {
-  if (password === repassword) {
+function validateRePassword() {
+  if (passwordElement.value == repasswordInput.value) {
     repasswordInput.classList.remove("is-invalid");
     repasswordInput.classList.add("is-valid");
     return true;
@@ -80,7 +81,7 @@ forms.addEventListener("submit", function (event) {
     !validateEmail() ||
     !validateUsername() ||
     !validatePassword() ||
-    !validateRePassword(passwordElement.value, repasswordInput.value)
+    !validateRePassword()
   ) {
     event.preventDefault();
   } else {
@@ -93,6 +94,7 @@ forms.addEventListener("submit", function (event) {
       (user) => user.email === emailElement.value
     );
     if (!isCheckUserName && !isCheckMail) {
+      alert("Sign Up Success");
       user = {
         ...user,
         userName: userNameElement.value,
